@@ -44,7 +44,7 @@ def load_regret_data(
   """Load regret and program length data from .npz file.
   
   Args:
-    npz_path: Path to .npz file produced by llm_brainphoque_binary_qwen.py
+    npz_path: Path to .npz file produced by llm_BF_binary_qwen.py
     use_short_program_length: If True, use short_program_lengths; else program_lengths
     remove_outliers: If True, filter out programs with unusually high regret (IQR method)
     
@@ -100,7 +100,7 @@ def main() -> None:
       "--input_files",
       nargs="+",
       required=True,
-      help="Paths to .npz files produced by llm_brainphoque_binary_qwen.py",
+      help="Paths to .npz files produced by llm_BF_binary_qwen.py",
   )
   parser.add_argument(
       "--labels",

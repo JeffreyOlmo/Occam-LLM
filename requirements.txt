@@ -7,6 +7,6 @@ tqdm
 torch
 transformers
 
-# JAX (required by BrainPhoque UTM implementation)
+# JAX (required by BF UTM implementation)
 jax
 jaxlib

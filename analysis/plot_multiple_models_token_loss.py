@@ -25,7 +25,7 @@ def load_and_smooth_loss(
   """Load log losses from .npz and return smoothed average loss over positions.
   
   Args:
-    npz_path: Path to .npz file produced by llm_brainphoque_binary_qwen.py
+    npz_path: Path to .npz file produced by llm_BF_binary_qwen.py
     smooth_window: Size of moving average window for smoothing
     
   Returns:
@@ -66,7 +66,7 @@ def main() -> None:
       "--input_files",
       nargs="+",
       required=True,
-      help="Paths to .npz files produced by llm_brainphoque_binary_qwen.py",
+      help="Paths to .npz files produced by llm_BF_binary_qwen.py",
   )
   parser.add_argument(
       "--labels",

@@ -1,6 +1,6 @@
-"""Generate and save BrainPhoque binary sequences for evaluation.
+"""Generate and save BF binary sequences for evaluation.
 
-This script samples BrainPhoque programs, executes them to produce binary sequences,
+This script samples BF programs, executes them to produce binary sequences,
 and saves the sequences along with program metadata. This allows multiple models
 to be evaluated on the same dataset without regenerating it each time.
 
@@ -30,9 +30,9 @@ def _sample_binary_sequences_from_BF(
     maximum_steps: int,
     seed: int,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, List[str], List[str]]:
-  """Samples binary sequences by executing random BrainPhoque programs.
+  """Samples binary sequences by executing random BF programs.
 
-  The BrainPhoque UTM is instantiated with alphabet_size=2 so that each output
+  The BF UTM is instantiated with alphabet_size=2 so that each output
   character is a single bit in {0, 1}. We repeatedly:
     * Sample a random program of length max_program_length (uniform over tokens).
     * Run it on the UTM up to `maximum_steps`, with max_output_length equal to
@@ -46,7 +46,7 @@ def _sample_binary_sequences_from_BF(
     sequences:      Array of shape (num_sequences, sequence_length) with entries
                     in {0, 1}.
     prog_lengths:   Array of shape (num_sequences,) with original program
-                    lengths (in BrainPhoque tokens).
+                    lengths (in BF tokens).
     short_lengths:  Array of shape (num_sequences,) with lengths of
                     `short_program` when available, otherwise equal to
                     `prog_lengths`.
@@ -55,7 +55,7 @@ def _sample_binary_sequences_from_BF(
   """
   rng = np.random.default_rng(seed=seed)
   program_sampler = utms_lib.FastSampler(rng=rng)
-  utm = utms_lib.BrainPhoqueUTM(
+  utm = utms_lib.BFUTM(
       sampler=program_sampler,
       alphabet_size=2,
       shorten_program=True,
@@ -67,7 +67,7 @@ def _sample_binary_sequences_from_BF(
   full_programs: List[str] = []
   short_programs: List[str] = []
   attempts = 0
-  print(f"Sampling {num_sequences} binary sequences of length {sequence_length} from BrainPhoque UTM...")
+  print(f"Sampling {num_sequences} binary sequences of length {sequence_length} from BF UTM...")
   print(f"  Using length-biased sampling: programs sampled with weights favoring longer lengths")
   
   # Create a distribution that heavily favors longer programs
@@ -138,7 +138,7 @@ def _sample_binary_sequences_from_BF(
 
 def main() -> None:
   parser = argparse.ArgumentParser(
-      description="Generate and save BrainPhoque binary sequences for evaluation."
+      description="Generate and save BF binary sequences for evaluation."
   )
   parser.add_argument(
       "--num_sequences",
@@ -156,13 +156,13 @@ def main() -> None:
       "--max_program_length",
       type=int,
       default=120,
-      help="Maximum program length used when sampling BrainPhoque programs.",
+      help="Maximum program length used when sampling BF programs.",
   )
   parser.add_argument(
       "--memory_size",
       type=int,
       default=10,
-      help="Memory size for the BrainPhoque UTM.",
+      help="Memory size for the BF UTM.",
   )
   parser.add_argument(
       "--maximum_steps",

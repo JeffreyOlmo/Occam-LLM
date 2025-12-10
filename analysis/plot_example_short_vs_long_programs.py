@@ -31,7 +31,7 @@ def _regenerate_program_from_sequence(
     maximum_steps: int,
     target_short_length: int | None = None,
 ) -> tuple[str, str]:
-  """Regenerate a BrainPhoque program that produces the given sequence.
+  """Regenerate a BF program that produces the given sequence.
   
   This is approximate - we sample programs until we find one that produces
   the target sequence. If target_short_length is provided, we prefer programs
@@ -39,7 +39,7 @@ def _regenerate_program_from_sequence(
   """
   rng = np.random.default_rng(seed=seed)
   program_sampler = utms_lib.FastSampler(rng=rng)
-  utm = utms_lib.BrainPhoqueUTM(
+  utm = utms_lib.BFUTM(
       sampler=program_sampler,
       alphabet_size=2,
       shorten_program=True,
@@ -111,7 +111,7 @@ def main() -> None:
       "--input_path",
       type=str,
       required=True,
-      help="Path to .npz file from llm_brainphoque_binary_qwen.py",
+      help="Path to .npz file from llm_BF_binary_qwen.py",
   )
   parser.add_argument(
       "--use_short_program_length",

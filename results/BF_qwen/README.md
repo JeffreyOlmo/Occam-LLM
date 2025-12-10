@@ -1,12 +1,12 @@
-# BrainPhoque Qwen Evaluation Results
+# BF Qwen Evaluation Results
 
-This directory contains results from evaluating Qwen models on BrainPhoque-generated binary sequences to investigate LLM in-context learning as an approximation of Solomonoff induction.
+This directory contains results from evaluating Qwen models on BF-generated binary sequences to investigate LLM in-context learning as an approximation of Solomonoff induction.
 
 ## Directory Structure
 
 ```
 BF_qwen/
-├── data/                          # Pre-generated BrainPhoque sequences (optional)
+├── data/                          # Pre-generated BF sequences (optional)
 ├── individual_results/            # Model evaluation results (.npz files)
 │   ├── qwen2_5_0_5b_BF_binary_results_1000x250_len300.npz
 │   ├── qwen2_5_3b_BF_binary_results_1000x250_len300.npz
@@ -45,7 +45,7 @@ Each result file contains:
 
 All analysis scripts are in `neural_networks_solomonoff_induction/analysis/`:
 
-1. **`generate_BF_binary_data.py`**: Generate BrainPhoque sequences
+1. **`generate_BF_binary_data.py`**: Generate BF sequences
 2. **`llm_BF_binary_qwen.py`**: Evaluate Qwen models on sequences
 3. **`plot_multiple_models_token_loss.py`**: Create loss-over-position comparison plot
 4. **`plot_multiple_models_regret.py`**: Create regret-vs-complexity comparison plot

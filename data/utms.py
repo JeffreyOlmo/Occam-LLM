@@ -16,7 +16,7 @@
 """Simple universal turing machines, used for generating data.
 
 This file contains the interface for the UTMs (an abstract class), and the code
-for the BrainPhoque machine (an implementation of the interface), operating on
+for the BF machine (an implementation of the interface), operating on
 bits. The goal is to generate data from programs sampled from the Solomonoff
 prior.
 """
@@ -143,7 +143,7 @@ class FastSampler(ProgramSampler):
 
 
 class MCSampler(ProgramSampler):
-  """Markov chain sampler for BrainPhoque programs only.
+  """Markov chain sampler for BF programs only.
 
   This sampler uses a k-order Markov model to predict the sequence of
   instructions of the program.
@@ -246,8 +246,8 @@ class MCSampler(ProgramSampler):
     return ln_loss
 
 
-class BrainPhoqueUTM(UniversalTuringMachine):
-  """BrainPhoque (slight variant of BrainFuck) universal turing machine.
+class BFUTM(UniversalTuringMachine):
+  """BF (slight variant of BrainFuck) universal turing machine.
 
   Reference: https://en.wikipedia.org/wiki/Brainfuck
   This machine only uses 7 program characters, described in the link above. The
@@ -262,7 +262,7 @@ class BrainPhoqueUTM(UniversalTuringMachine):
   Finally, outputs are returned with the instruction '.'.
   See the reference above for more details.
 
-  BrainPhoque (BP) differs slightly from BrainFuck (BF).
+  BF (BP) differs slightly from BrainFuck (BF).
 
   Why it differs:
   Programs for normalized Solomonoff induction are assumed to be infinite.
@@ -285,11 +285,11 @@ class BrainPhoqueUTM(UniversalTuringMachine):
   Instead, in order to keep a single array that only needs to be extended at the
   end, we change the semantics of BF slightly — though this not change the
   evaluation of the program.
-  The BrainPhoque (BP) UTM executes the same instructions as BF. The main
+  The BF (BP) UTM executes the same instructions as BF. The main
   difference with BF is that code is sometimes written at a different location.
   More precisely, consider a BF block: A[B]C, where A, B and C are sequences of
   instructions. We call B the _body_ of the block, and C the _continuation_ of
-  the block. In BrainPhoque, when encountering a '[', the meaning is the same as
+  the block. In BF, when encountering a '[', the meaning is the same as
   for BF, but when encountering a '{' the meaning is reversed, and the sequence
   is written A{C]…B where … means that there may be other instructions
   in-between. The block body B is pushed at a later point in the program, and
@@ -364,7 +364,7 @@ class BrainPhoqueUTM(UniversalTuringMachine):
 
   @property
   def program_tokens(self) -> Sequence[str]:
-    """Returns the tokens that can be used to write a BrainPhoque program.
+    """Returns the tokens that can be used to write a BF program.
     
 
     Note that '{' is not included because when sampling a program an open
@@ -375,7 +375,7 @@ class BrainPhoqueUTM(UniversalTuringMachine):
 
   @property
   def program_valid_tokens(self) -> Sequence[str]:
-    """Returns the tokens that can appear in a BrainPhoque program."""
+    """Returns the tokens that can appear in a BF program."""
     return ['+', '-', '>', '<', '[', '{', ']', '.'] + int(self._use_input_instruction) * [',']
 
   def run_program(
@@ -386,7 +386,7 @@ class BrainPhoqueUTM(UniversalTuringMachine):
       max_output_length: int,
       input_symbols: list = None,
   ) -> RunResult:
-    """Returns the output of a program on the BrainPhoque UTM.
+    """Returns the output of a program on the BF UTM.
 
     If program is not '', the program is evaluated for at most `maximum_steps`.
     The 'status' key of the return dictionary can then be 'HALTED' (all
