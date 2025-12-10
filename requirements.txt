@@ -1,8 +1,12 @@
-absl-py
-dm-haiku
-dm-tree
-jax
-jaxtyping
+# Core dependencies for LLM in-context learning evaluation
 numpy
+matplotlib
 tqdm
-dm-haiku
+
+# PyTorch and transformers for Qwen models
+torch
+transformers
+
+# JAX (required by BrainPhoque UTM implementation)
+jax
+jaxlib
