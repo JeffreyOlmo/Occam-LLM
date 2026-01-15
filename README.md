@@ -2,7 +2,7 @@
 
 This repository contains code and results for investigating whether large language models (LLMs) exhibit behavior consistent with Solomonoff induction when performing in-context learning on algorithmic sequences.
 
-[Occam-LLM-Poster.pdf](https://github.com/user-attachments/files/24630432/Occam-LLM-Poster.pdf)
+<img width="858" height="641" alt="Screenshot 2026-01-14 at 6 48 40 PM" src="https://github.com/user-attachments/assets/ff8184fd-38f9-48cb-a431-b6b1bc458c93" />
 
 
 ## Overview
